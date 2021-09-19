@@ -13,7 +13,7 @@ Getting started
 
 1. Install the necessary program to build rpms on your system.
 
-```
+```bash
 sudo dnf install rpm-build rpmdevtools rpmlint
 ```
 
@@ -27,8 +27,8 @@ Where `<PACKAGE>` is the name of a directory containing a specfile named `$PACKA
 
 3. Install the package
 
-```
-sudo dnf install ./
+```bash
+sudo dnf install ./<PACKAGE>.rpm
 ```
 
 Documentation
