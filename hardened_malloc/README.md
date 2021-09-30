@@ -18,4 +18,4 @@ Content
 
 - `libhardened_malloc.so`
 - sysctl configuration file to raise `vm.max_map_count`
-- post-transaction scriptlet to insert hardened_malloc into `/etc/ld.so.preload`
+- ~post-transaction scriptlet to insert hardened_malloc into `/etc/ld.so.preload`~

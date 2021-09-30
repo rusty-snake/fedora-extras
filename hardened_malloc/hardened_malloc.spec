@@ -1,6 +1,6 @@
 Name:           hardened_malloc
 Version:        8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
@@ -35,16 +35,16 @@ strip %{buildroot}%{_libdir}/libhardened_malloc.so
 make test
 
 
-%post
-if ! grep -q "%{_libdir}/libhardened_malloc.so" /etc/ld.so.preload; then
-    echo " %{_libdir}/libhardened_malloc.so " >> /etc/ld.so.preload
-fi
-
-
-%preun
-if [[ $1 == 0 ]]; then
-    sed -i "s|%{_libdir}/libhardened_malloc.so||g" /etc/ld.so.preload
-fi
+#%post
+#if ! grep -q "%{_libdir}/libhardened_malloc.so" /etc/ld.so.preload; then
+#    echo " %{_libdir}/libhardened_malloc.so " >> /etc/ld.so.preload
+#fi
+#
+#
+#%preun
+#if [[ $1 == 0 ]]; then
+#    sed -i "s|%{_libdir}/libhardened_malloc.so||g" /etc/ld.so.preload
+#fi
 
 
 %files
@@ -55,5 +55,9 @@ fi
 
 
 %changelog
+* Thu Sep 30 2021 rusty-snake - 8-2
+- Disable the post-transaction scriptlet to insert hardened_malloc
+  into `/etc/ld.so.preload
+
 * Sat Sep 18 2021 rusty-snake - 8-1
 - Initial hardened_malloc spec
