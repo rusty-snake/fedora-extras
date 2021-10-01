@@ -1,15 +1,17 @@
-%global commit a04fa0bedec3f5170ba2982fdbb4004a0ebd8503
-%global commitdate 20210927
+%global commit acea54c65f1639421898487213a9f128160fc0d2
+%global commitdate 20211001
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           libaslrmalloc
 Version:        0
 Release:        1.%{commitdate}git%{shortcommit}%{?dist}
-Summary:        LD_PRELOADed library to randomize malloc and friends
+Summary:        Malloc replacement library for maximum ASLR
 
 License:        LGPLv2+ or BSD
 URL:            https://github.com/topimiettinen/libaslrmalloc
 Source0:        %{url}/archive/%{commit}.tar.gz
+
+BuildRequires:  meson >= 0.52.1
 
 
 %description
@@ -24,19 +26,28 @@ randomization (ASLR).
 
 
 %build
-gcc -o libaslrmalloc.so libaslrmalloc.c -fPIC -Wall -g -nostdlib -shared -O
+%meson
+%meson_build
 
 
 %install
-install -Dm0755 libaslrmalloc.so %{buildroot}%{_libdir}/libaslrmalloc.so
-strip %{buildroot}%{_libdir}/libaslrmalloc.so
+%meson_install
+strip %{buildroot}%{_libdir}/libaslrmalloc.so.1
+
+
+%check
+%meson_test
 
 
 %files
 %doc README.md DESIGN.md
 %{_libdir}/libaslrmalloc.so
+%{_libdir}/libaslrmalloc.so.1
 
 
 %changelog
+* Fri Oct 01 2021 rusty-snake - 0-1.20211001gitacea54c
+- Adopt meson as build system
+
 * Thu Sep 30 2021 rusty-snake - 0-1.20210927gita04fa0b
 - Initial libaslrmalloc spec
