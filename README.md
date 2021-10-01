@@ -12,7 +12,7 @@ Currently this are:
 Getting started
 ---------------
 
-1. Install the necessary program to build rpms on your system.
+1. Install the necessary programs to build rpms on your system.
 
 ```bash
 sudo dnf install rpm-build rpmdevtools rpmlint
