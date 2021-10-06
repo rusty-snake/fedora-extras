@@ -1,7 +1,7 @@
 libaslrmalloc
 =============
 
-LD_PRELOADed library to randomize malloc and friends.
+Malloc replacement library for maximum ASLR
 
 Content
 -------

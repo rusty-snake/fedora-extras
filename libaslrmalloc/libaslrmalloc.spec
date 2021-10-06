@@ -1,5 +1,5 @@
-%global commit acea54c65f1639421898487213a9f128160fc0d2
-%global commitdate 20211001
+%global commit 468e3e96d9e0c677e090bbfb8c4ce0a0b66f4999
+%global commitdate 20211005
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           libaslrmalloc
@@ -46,6 +46,9 @@ strip %{buildroot}%{_libdir}/libaslrmalloc.so.1
 
 
 %changelog
+* Wed Oct 06 2021 rusty-snake - 0-1.20211005git468e3e9
+- Update to latest commit
+
 * Fri Oct 01 2021 rusty-snake - 0-1.20211001gitacea54c
 - Adopt meson as build system
 
