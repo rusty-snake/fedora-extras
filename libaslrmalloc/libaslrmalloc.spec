@@ -1,10 +1,10 @@
-%global commit 1f0beff70270aa0035cb66f8566c435fee403513
-%global commitdate 20211006
+%global commit b6c03a48a7a84d2e9db0ca3831339541ad381d5d
+%global commitdate 20211007
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           libaslrmalloc
-Version:        0
-Release:        1.%{commitdate}git%{shortcommit}%{?dist}
+Version:        1.0.0~alpha
+Release:        0.1.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Malloc replacement library for maximum ASLR
 
 License:        LGPLv2+ or BSD
@@ -32,7 +32,7 @@ randomization (ASLR).
 
 %install
 %meson_install
-strip %{buildroot}%{_libdir}/libaslrmalloc.so.1
+strip %{buildroot}%{_libdir}/libaslrmalloc.so.1.0.0
 
 
 %check
@@ -43,9 +43,13 @@ strip %{buildroot}%{_libdir}/libaslrmalloc.so.1
 %doc README.md DESIGN.md
 %{_libdir}/libaslrmalloc.so
 %{_libdir}/libaslrmalloc.so.1
+%{_libdir}/libaslrmalloc.so.1.0.0
 
 
 %changelog
+* Thu Oct 07 2021 rusty-snake - 1.0.0~alpha.0.1.20211007gitb6c03a4
+- Update to latest commit
+
 * Wed Oct 06 2021 rusty-snake - 0-1.20211006git1f0beff
 - Update to latest commit
 
