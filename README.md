@@ -21,10 +21,12 @@ sudo dnf install rpm-build rpmdevtools rpmlint
 2. Build the package you.
 
 ```bash
-./rpmbuild.sh <PACKAGE>
+./rpmbuild.sh [OPTIONS] <PACKAGE>
 ```
 
 Where `<PACKAGE>` is the name of a directory containing a specfile named `$PACKAGE.spec` and `setup_source.sh`.
+
+`[OPTIONS]` can be `-l` (run `rpmlint`), `-n` (add `--nodeps` to `rpmbuild`) and `-s` (run unsandboxed).
 
 3. Install the package
 
