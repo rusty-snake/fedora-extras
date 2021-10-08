@@ -1,5 +1,5 @@
-%global commit 2c703603a48e3dd15894cb5dc8bf3f93895bf1e4
-%global commitdate 20211007
+%global commit 9abdb7b5fb4d72aad33cb075ea47df9489733f98
+%global commitdate 20211008
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           libaslrmalloc
@@ -15,10 +15,12 @@ BuildRequires:  meson >= 0.52.1
 
 
 %description
-libaslrmalloc is a LD_PRELOADed library which replaces malloc(), free(),
-realloc() and calloc() from C library. The main design goal is not
+libaslrmalloc is a LD_PRELOADed library which replaces malloc() and other
+memory allocation functions from C library. The main design goal is not
 performance or memory consumption but to increase address space layout
-randomization (ASLR).
+randomization (ASLR), hence the name. This is achieved by not trying to keep
+the pages together, forcing the kernel to map pages at random addresses and
+unmapping old memory immediately when possible.
 
 
 %prep
@@ -47,6 +49,9 @@ strip %{buildroot}%{_libdir}/libaslrmalloc.so.1.0.0
 
 
 %changelog
+* Fri Oct 08 2021 rusty-snake - 1.0.0~alpha-0.2.20211008git9abdb7b
+- Update to latest commit
+
 * Thu Oct 07 2021 rusty-snake - 1.0.0~alpha-0.2.20211007git2c70360
 - Update to latest commit
 
