@@ -48,6 +48,7 @@ cp "$PACKAGE/$PACKAGE.spec" "$SPECDIR/$PACKAGE.spec"
 (cd "$PACKAGE" && source ./setup_sourcedir.sh)
 
 BWRAP_ARGS=(
+	# TODO: --seccomp
 	--die-with-parent
 	--unshare-all
 	--new-session
