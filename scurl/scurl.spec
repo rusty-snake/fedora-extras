@@ -1,6 +1,6 @@
 Name:           scurl
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Secure curl
 
 License:        MIT
@@ -25,8 +25,7 @@ scurl-download is a wrapper around scurl optimized to download files.
 
 
 %prep
-cp %{SOURCE2} %{SOURCE3} %{_builddir}
-printenv | grep RPM
+cp %{SOURCE2} %{SOURCE3} %{SOURCE6} %{_builddir}
 
 
 %build
@@ -52,6 +51,9 @@ install -Dm0644 -t %{buildroot}%{_mandir}/man1 scurl.1.gz scurl-download.1.gz sc
 
 
 %changelog
+* Thu Oct 14 2021 rusty-snake 1.1.0-2
+- Fix building of scurl-tor manpage
+
 * Thu Oct 14 2021 rusty-snake 1.1.0-1
 - Add scurl-tor
 - Drop --help message from scurl and scurl-download
