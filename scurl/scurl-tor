@@ -1,0 +1,4 @@
+#!/bin/bash
+source /etc/sysconfig/scurl-tor
+# https://gitlab.torproject.org/legacy/trac/-/wikis/doc/TorifyHOWTO/Misc
+exec scurl --user-agent "$USER_AGENT" --compressed --proxy "socks5h://127.0.0.1:$PORT" "$@"

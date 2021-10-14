@@ -1,3 +1,2 @@
 #!/bin/bash
-[[ " $* " == *" --help "* ]] && echo -e "scurl is a wrapper around curl that enforces TLSv1.3.\n"
 exec curl --tlsv1.3 --proto =https "$@"

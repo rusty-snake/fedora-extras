@@ -1,3 +1,2 @@
 #!/bin/bash
-[[ " $* " == *" --help "* ]] && echo -e "scurl-download is a wrapper around scurl optimized to download files\n"
 exec scurl --location --remote-name-all --remote-header-name "$@"

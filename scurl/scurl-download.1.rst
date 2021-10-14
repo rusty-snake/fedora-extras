@@ -39,4 +39,4 @@ EXAMPLES
 SEE ALSO
 ========
 
-curl(1)
+curl(1) scurl(1)
