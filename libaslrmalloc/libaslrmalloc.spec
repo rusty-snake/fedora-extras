@@ -1,5 +1,5 @@
-%global commit 1047dde4f6ea8d1aa743937e7604bddc3dacfc1f
-%global commitdate 20211020
+%global commit 4e8163efa49f5fbfa9ee293fc926606848e87aab
+%global commitdate 20211025
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           libaslrmalloc
@@ -49,6 +49,9 @@ strip %{buildroot}%{_libdir}/libaslrmalloc.so.1.0.0
 
 
 %changelog
+* Sun Oct 17 2021 rusty-snake - 1.0.0~alpha-0.2.20211025git4e8163e
+- Update to latest commit
+
 * Sun Oct 17 2021 rusty-snake - 1.0.0~alpha-0.2.20211020git1047dde
 - Update to latest commit
 
