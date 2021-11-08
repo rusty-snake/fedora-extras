@@ -1,5 +1,5 @@
-%global commit 4e8163efa49f5fbfa9ee293fc926606848e87aab
-%global commitdate 20211025
+%global commit ef096c4b45dc926323b3565c9a563cfce77cabce
+%global commitdate 20211108
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           libaslrmalloc
@@ -28,13 +28,12 @@ unmapping old memory immediately when possible.
 
 
 %build
-%meson
+%meson -Dstrip=true
 %meson_build
 
 
 %install
 %meson_install
-strip %{buildroot}%{_libdir}/libaslrmalloc.so.1.0.0
 
 
 %check
@@ -43,12 +42,16 @@ strip %{buildroot}%{_libdir}/libaslrmalloc.so.1.0.0
 
 %files
 %doc README.md DESIGN.md
+%{_bindir}/libaslrmallocrun
 %{_libdir}/libaslrmalloc.so
 %{_libdir}/libaslrmalloc.so.1
 %{_libdir}/libaslrmalloc.so.1.0.0
 
 
 %changelog
+* Mon Nov 08 2021 rusty-snake - 1.0.0~alpha-0.2.20211108gitef096c4
+- Update to latest commit
+
 * Sun Oct 17 2021 rusty-snake - 1.0.0~alpha-0.2.20211025git4e8163e
 - Update to latest commit
 
