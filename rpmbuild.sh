@@ -6,16 +6,27 @@ shopt -s nullglob
 
 cd -P -- "$(readlink -e "$(dirname "$0")")"
 
-REQUIRED_PROGRAMS=(rpmbuild rpmlint spectool)
-for program in "${REQUIRED_PROGRAMS[@]}"; do
-	if ! command -v $program >&-; then
-		echo "rpmbuild.sh: Please install $program: sudo dnf install \"\$(dnf repoquery --whatprovides /usr/bin/\"$package\" 2>/dev/null)\""
-		exit 5
-	fi
-done
+USER="${USER:-$(id -un)}"
+HOME="${HOME:-$(getent passwd $USER | cut -d: -f7)}"
+XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+
+usage() {
+	cat <<-EOM
+	./rpmbuild.sh [-hlns] <package>
+
+	  -h  Show this help and exit.
+	  -l  Run rpmlint.
+	  -n  Disable build dependencies check, useful if they aren't installed via dnf.
+	  -s  Run rpmbuild unsandboxed.
+	EOM
+}
 
 while getopts "lns" opt; do
 	case $opt in
+		h)
+			usage
+			exit 0
+		;;
 		l)
 			RBS_LINT=true
 		;;
@@ -30,8 +41,15 @@ while getopts "lns" opt; do
 		;;
 	esac
 done
-
 PACKAGE="${!OPTIND}"
+
+REQUIRED_PROGRAMS=(rpmbuild rpmlint spectool)
+for program in "${REQUIRED_PROGRAMS[@]}"; do
+	if ! command -v $program >&-; then
+		echo "rpmbuild.sh: Please install $program: sudo dnf install \"\$(dnf repoquery --whatprovides /usr/bin/\"$package\" 2>/dev/null)\""
+		exit 5
+	fi
+done
 
 TOPDIR="$(mktemp -dt rpmbuild.sh-XXXXXX)"
 # shellcheck disable=SC2064
@@ -45,7 +63,14 @@ SRPMDIR=$(rpm --define "_topdir $TOPDIR" --eval %_srcrpmdir)
 mkdir -p "$BUILDDIR" "$RPMDIR" "$SOURCEDIR" "$SPECDIR" "$SRPMDIR"
 
 cp "$PACKAGE/$PACKAGE.spec" "$SPECDIR/$PACKAGE.spec"
-(cd "$PACKAGE" && source ./setup_sourcedir.sh)
+if [[ -e "$PACKAGE/setup_sourcedir.sh" ]]; then
+	(cd "$PACKAGE" && source ./setup_sourcedir.sh)
+else
+	spectool -C "$XDG_CACHE_HOME/rpmbuild.sh/$PACKAGE" --gf "$SPECDIR/$PACKAGE.spec"
+	while read -r source; do
+		cp "$XDG_CACHE_HOME/rpmbuild.sh/$PACKAGE/$source" "$SOURCEDIR/$source"
+	done < <(spectool --lf "$SPECDIR/$PACKAGE.spec" | xargs -d"\n" -L1 basename)
+fi
 
 BWRAP_ARGS=(
 	# TODO: --seccomp

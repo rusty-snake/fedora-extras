@@ -25,7 +25,7 @@ sudo dnf install rpm-build rpmdevtools rpmlint
 ./rpmbuild.sh [OPTIONS] <PACKAGE>
 ```
 
-Where `<PACKAGE>` is the name of a directory containing a specfile named `$PACKAGE.spec` and `setup_source.sh`.
+Where `<PACKAGE>` is the name of a directory containing a specfile named `$PACKAGE.spec` and `setup_source.sh` (optional).
 
 `[OPTIONS]` can be `-l` (run `rpmlint`), `-n` (add `--nodeps` to `rpmbuild`) and `-s` (run unsandboxed).
 
