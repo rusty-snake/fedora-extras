@@ -6,6 +6,7 @@ Additional package for Fedora, missing in the offical repositories and RPMFusion
 Currently this are:
 - brave-browser-bin
 - bubblejail
+- gVisor-bin
 - hardened_malloc
 - libaslrmalloc
 - scurl
