@@ -115,12 +115,7 @@ else
 fi
 
 if [[ -n "$RBS_LINT" ]]; then
-	echo ""
-	echo "==========="
-	echo "= rpmlint ="
-	echo "==========="
-	echo ""
-	rpmlint -i "$SPECDIR"/*.spec "$RPMDIR"/*/*.rpm "$SRPMDIR"/*.rpm ||:
+	rpmlint --info "$SPECDIR"/*.spec "$RPMDIR"/*/*.rpm "$SRPMDIR"/*.rpm ||:
 fi
 
 cp "$RPMDIR"/*/*.rpm "$SRPMDIR"/*.rpm .
