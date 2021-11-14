@@ -1,4 +1,0 @@
-vmware-view
-uhb2dnsmasq (download)
-firefox (exit)
-nightly (start)
