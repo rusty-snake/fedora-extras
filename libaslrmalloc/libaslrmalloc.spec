@@ -1,5 +1,5 @@
-%global commit 0e75b3450d61ecf185fcd9b0869e28939f72d789
-%global commitdate 20211111
+%global commit 4634c0523c020a59c43e1544a17f91eee1e2905a
+%global commitdate 20211118
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           libaslrmalloc
@@ -49,7 +49,7 @@ unmapping old memory immediately when possible.
 
 
 %changelog
-* Sun Nov 14 2021 rusty-snake - 1.0.0~alpha-0.1.20211111git0e75b34
+* Thu Nov 18 2021 rusty-snake - 1.0.0~alpha-0.1.20211118git4634c05
 - Update to latest commit
 
 * Thu Sep 30 2021 rusty-snake - 0-1.20210927gita04fa0b
