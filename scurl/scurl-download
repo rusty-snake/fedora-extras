@@ -1,2 +1,3 @@
 #!/bin/bash
-exec scurl --location --remote-name-all --remote-header-name "$@"
+source /etc/sysconfig/scurl-download
+exec scurl --location --remote-name-all --remote-header-name --user-agent "$USER_AGENT" --compressed "$@"

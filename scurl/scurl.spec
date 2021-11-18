@@ -1,6 +1,6 @@
 Name:           scurl
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Secure curl
 
 License:        MIT
@@ -12,10 +12,10 @@ Source3:        scurl-download.1.rst
 Source4:        scurl-tor
 Source5:        scurl-tor.conf
 Source6:        scurl-tor.1.rst
+Source7:        scurl-download.conf
 
 BuildArch:      noarch
-
-BuildRequires:  gzip python3-docutils
+BuildRequires:  python3-docutils
 Requires:       curl
 
 
@@ -25,23 +25,25 @@ scurl-download is a wrapper around scurl optimized to download files.
 
 
 %prep
-cp %{SOURCE2} %{SOURCE3} %{SOURCE6} %{_builddir}
+cp %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} %{_builddir}
 
 
 %build
-rst2man scurl.1.rst | gzip -9 > scurl.1.gz
-rst2man scurl-download.1.rst | gzip -9 > scurl-download.1.gz
-rst2man scurl-tor.1.rst | gzip -9 > scurl-tor.1.gz
+rst2man scurl.1.rst scurl.1
+rst2man scurl-download.1.rst scurl-download.1
+rst2man scurl-tor.1.rst scurl-tor.1
 
 
 %install
 install -Dm0644 %{SOURCE5} %{buildroot}/etc/sysconfig/scurl-tor
-install -Dm0755 -t %{buildroot}%{_bindir} %{SOURCE0} %{SOURCE1} %{SOURCE4}
-install -Dm0644 -t %{buildroot}%{_mandir}/man1 scurl.1.gz scurl-download.1.gz scurl-tor.1.gz
+install -Dm0644 %{SOURCE7} %{buildroot}/etc/sysconfig/scurl-download
+install -Dm0755 -t %{buildroot}%{_bindir} scurl scurl-download scurl-tor
+install -Dm0644 -t %{buildroot}%{_mandir}/man1 scurl.1 scurl-download.1 scurl-tor.1
 
 
 %files
 %config(noreplace) /etc/sysconfig/scurl-tor
+%config(noreplace) /etc/sysconfig/scurl-download
 %{_bindir}/scurl
 %{_bindir}/scurl-download
 %{_bindir}/scurl-tor
@@ -51,6 +53,11 @@ install -Dm0644 -t %{buildroot}%{_mandir}/man1 scurl.1.gz scurl-download.1.gz sc
 
 
 %changelog
+* Thu Nov 18 2021 rusty-snake 2.0.0-1
+- Do not gzip manpages during %%build
+- scurl-download: Fake the UA
+- scurl-download: Use --compressed
+
 * Thu Oct 14 2021 rusty-snake 1.1.0-2
 - Fix building of scurl-tor manpage
 
