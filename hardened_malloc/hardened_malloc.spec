@@ -1,6 +1,6 @@
 Name:           hardened_malloc
-Version:        8
-Release:        3%{?dist}
+Version:        9
+Release:        1%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
@@ -56,6 +56,9 @@ make test
 
 
 %changelog
+* Mon Jan 3 2022 rusty-snake - 9-1
+- Update to version 9
+
 * Sun Nov 14 2021 rusty-snake - 8-3
 - Install 30-hardened_malloc.conf under %%_sysctldir
 - Cleanup the specfile
