@@ -85,7 +85,7 @@ BWRAP_ARGS=(
 	--symlink /usr/lib /lib
 	--symlink /usr/lib64 /lib64
 	--symlink /usr/sbin /sbin
-	--tmpfs /tmp
+	--dir /tmp
 	--ro-bind-try /etc/alternatives /etc/alternatives
 	--ro-bind-try /etc/dnf /etc/dnf
 	--ro-bind-try /etc/rpm /etc/rpm
@@ -94,7 +94,7 @@ BWRAP_ARGS=(
 	--ro-bind-try /var/cache/dnf /var/cache/dnf
 	--ro-bind-try /var/lib/dnf /var/lib/dnf
 	--ro-bind-try /var/lib/rpm /var/lib/rpm
-	--tmpfs /var/tmp
+	--dir /var/tmp
 	--bind "$TOPDIR" "$TOPDIR"
 )
 RPMBUILD_ARGS=(
