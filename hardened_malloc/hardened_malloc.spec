@@ -1,5 +1,5 @@
 Name:           hardened_malloc
-Version:        9
+Version:        10
 Release:        1%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
@@ -25,11 +25,13 @@ will gain more portability / integration over time.
 
 %build
 make
+make VARIANT=light
 
 
 %install
 install -Dm0644 %{SOURCE1} %{buildroot}%{_sysctldir}/30-hardened_malloc.conf
-install -Dm0755 -s libhardened_malloc.so %{buildroot}%{_libdir}/libhardened_malloc.so
+install -Dm0755 -s out/libhardened_malloc.so %{buildroot}%{_libdir}/libhardened_malloc.so
+install -Dm0755 -s out-light/libhardened_malloc-light.so %{buildroot}%{_libdir}/libhardened_malloc-light.so
 
 
 %check
@@ -53,9 +55,14 @@ make test
 %doc README.md
 %{_sysctldir}/30-hardened_malloc.conf
 %{_libdir}/libhardened_malloc.so
+%{_libdir}/libhardened_malloc-light.so
 
 
 %changelog
+* Thu Jan 13 2022 rusty-snake - 10-1
+- Update to version 10
+- Add libhardened_malloc-light.so
+
 * Mon Jan 3 2022 rusty-snake - 9-1
 - Update to version 9
 
