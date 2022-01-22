@@ -1,5 +1,5 @@
 Name:           hardened_malloc
-Version:        10
+Version:        11
 Release:        1%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
@@ -59,6 +59,9 @@ make test
 
 
 %changelog
+* Sat Jan 22 2022 rusty-snake - 11-1
+- Update to version 11
+
 * Thu Jan 13 2022 rusty-snake - 10-1
 - Update to version 10
 - Add libhardened_malloc-light.so
