@@ -39,4 +39,4 @@ ln -s /opt/scala3/bin/scaladoc %{buildroot}%{_bindir}/scaladoc
 
 %changelog
 * Tue Feb 1 2022 rusty-snake - 3.1.0-1
-- Initial scala3-bin template spec
+- Initial scala3-bin spec
