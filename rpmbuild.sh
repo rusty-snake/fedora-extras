@@ -12,29 +12,33 @@ XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 
 usage() {
 	cat <<-EOM
-	./rpmbuild.sh [-hlns] <package>
+	./rpmbuild.sh [-hlnsi] <package>
 
 	  -h  Show this help and exit.
-	  -l  Run rpmlint.
+	  -l  Do not run rpmlint.
 	  -n  Disable build dependencies check, useful if they aren't installed via dnf.
 	  -s  Run rpmbuild unsandboxed.
+	  -i  Allow rpmbuild to access the network (ignore if used together with -a).
 	EOM
 }
 
-while getopts "lns" opt; do
+while getopts "lnsi" opt; do
 	case $opt in
 		h)
 			usage
 			exit 0
 		;;
 		l)
-			RBS_LINT=true
+			RBS_NOLINT=true
 		;;
 		n)
 			RBS_NODEPS=true
 		;;
 		s)
 			RBS_NOSANDBOX=true
+		;;
+		i)
+			RBS_SANDBOX_INET=true
 		;;
 		*)
 			exit 2
@@ -110,11 +114,13 @@ echo ${RPMBUILD_ARGS[@]}
 
 if [[ -n "$RBS_NOSANDBOX" ]]; then
 	rpmbuild "${RPMBUILD_ARGS[@]}" -bb "$SPECDIR/$PACKAGE.spec"
+elif [[ -n "$RBS_SANDBOX_INET" ]]; then
+	bwrap "${BWRAP_ARGS[@]}" --share-net -- rpmbuild "${RPMBUILD_ARGS[@]}" -bb "$SPECDIR/$PACKAGE.spec"
 else
 	bwrap "${BWRAP_ARGS[@]}" -- rpmbuild "${RPMBUILD_ARGS[@]}" -bb "$SPECDIR/$PACKAGE.spec"
 fi
 
-if [[ -n "$RBS_LINT" ]]; then
+if [[ -z "$RBS_NOLINT" ]]; then
 	rpmlint --info "$SPECDIR"/*.spec "$RPMDIR"/*/*.rpm "$SRPMDIR"/*.rpm ||:
 fi
 
