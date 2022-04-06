@@ -9,7 +9,7 @@ Currently this are:
 - gVisor-bin
 - hardened_malloc
 - libaslrmalloc
-- scala3-bin
+- scala3-bin [abandoned]
 - scurl
 
 Getting started
