@@ -4,7 +4,7 @@ fedora-extras
 Additional package for Fedora, missing in the offical repositories and RPMFusion.
 
 Currently this are:
-- brave-browser-bin
+- brave-browser-bin [abandoned; should still work]
 - bubblejail
 - gVisor-bin
 - hardened_malloc
