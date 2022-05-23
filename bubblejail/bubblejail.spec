@@ -1,5 +1,5 @@
 Name:           bubblejail
-Version:        0.5.3
+Version:        0.6.0
 Release:        1%{?dist}
 Summary:        Bubblewrap based sandboxing for desktop applications
 
@@ -18,6 +18,8 @@ Requires:       python3-qt5-base
 Requires:       desktop-file-utils
 Requires:       bubblewrap
 Requires:       xdg-dbus-proxy
+Requires:       libseccomp
+Requires:       libnotify
 Suggests:       bash-completion
 Suggests:       fish
 
@@ -61,6 +63,9 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 
 
 %changelog
+* Mon May 23 2022 rusty-snake - 0.6.0-1
+- Update to 0.6.0
+
 * Thu Apr 19 2022 rusty-snake - 0.5.3-1
 - Update to 0.5.3
 
