@@ -47,6 +47,11 @@ while getopts "hlnsi" opt; do
 done
 PACKAGE="${!OPTIND}"
 
+if [[ -z "$PACKAGE" ]]; then
+	usage
+	exit 2
+fi
+
 REQUIRED_PROGRAMS=(rpmbuild rpmlint spectool)
 for program in "${REQUIRED_PROGRAMS[@]}"; do
 	if ! command -v $program >&-; then
