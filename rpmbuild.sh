@@ -22,7 +22,7 @@ usage() {
 	EOM
 }
 
-while getopts "lnsi" opt; do
+while getopts "hlnsi" opt; do
 	case $opt in
 		h)
 			usage
