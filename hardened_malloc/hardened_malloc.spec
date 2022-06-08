@@ -11,6 +11,9 @@ Source1:        30-hardened_malloc.conf
 BuildRequires:  systemd-rpm-macros
 
 
+# https://github.com/GrapheneOS/hardened_malloc/issues/200
+%global optflags %{optflags} -fno-fat-lto-objects
+
 %description
 Hardened allocator designed for modern systems.
 
