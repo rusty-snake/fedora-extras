@@ -1,5 +1,5 @@
 Name:           bubblejail
-Version:        0.6.2
+Version:        0.7.0
 Release:        1%{?dist}
 Summary:        Bubblewrap based sandboxing for desktop applications
 
@@ -8,8 +8,8 @@ URL:            https://github.com/igo95862/bubblejail
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 
 BuildRequires:  meson
-BuildRequires:  m4
-BuildRequires:  python3-sphinx
+BuildRequires:  python3-jinja2
+BuildRequires:  scdoc
 Requires:       python3 >= 3.9
 Requires:       python3-pyxdg
 Requires:       python3-tomli
@@ -22,6 +22,7 @@ Recommends:     desktop-file-utils
 Recommends:     libnotify
 Suggests:       bash-completion
 Suggests:       fish
+Suggests:       slirp4netns
 
 
 %description
@@ -41,12 +42,6 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 %meson_install
 
 
-# bubblejail's testsuit tries to access files
-# in $HOME and fails if they don't exist.
-#%%check
-#%%meson_test
-
-
 %files
 %license COPYING
 %doc README.md docs/breaking_changes.md
@@ -60,9 +55,13 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 %_datadir/icons/hicolor/48x48/apps/bubblejail-config.png
 %_datadir/icons/hicolor/scalable/apps/bubblejail-config.svg
 %_mandir/man1/bubblejail.1.gz
+%_mandir/man5/bubblejail.services.5.gz
 
 
 %changelog
+* Sun Feb 12 2023 rusty-snake - 0.7.0-1
+- Update to 0.7.0
+
 * Sat Jul 09 2022 rusty-snake - 0.6.2-1
 - Update to 0.6.2
 
