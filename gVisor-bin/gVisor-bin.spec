@@ -1,5 +1,5 @@
 Name:           gVisor-bin
-Version:        20220103
+Version:        20230227
 Release:        1%{?dist}
 Summary:        Application Kernel for Containers
 
@@ -40,6 +40,9 @@ install -Dm0755 -s -t %{buildroot}%{_bindir} runsc containerd-shim-runsc-v1
 
 
 %changelog
+* Tue Feb 28 2023 rusty-snake 20230227-1
+- Update to 20230227
+
 * Sat Jan 08 2022 rusty-snake 20220103-1
 - Update to 20220103
 
