@@ -1,5 +1,5 @@
 Name:           scurl
-Version:        2.0.0
+Version:        2.0.1
 Release:        1%{?dist}
 Summary:        Secure curl
 
@@ -53,15 +53,18 @@ install -Dm0644 -t %{buildroot}%{_mandir}/man1 scurl.1 scurl-download.1 scurl-to
 
 
 %changelog
-* Thu Nov 18 2021 rusty-snake 2.0.0-1
+* Tue Mar 28 2023 rusty-snake - 2.0.1-1
+- Update USER_AGENT strings
+
+* Thu Nov 18 2021 rusty-snake - 2.0.0-1
 - Do not gzip manpages during %%build
 - scurl-download: Fake the UA
 - scurl-download: Use --compressed
 
-* Thu Oct 14 2021 rusty-snake 1.1.0-2
+* Thu Oct 14 2021 rusty-snake - 1.1.0-2
 - Fix building of scurl-tor manpage
 
-* Thu Oct 14 2021 rusty-snake 1.1.0-1
+* Thu Oct 14 2021 rusty-snake - 1.1.0-1
 - Add scurl-tor
 - Drop --help message from scurl and scurl-download
 - Manpage fixes
