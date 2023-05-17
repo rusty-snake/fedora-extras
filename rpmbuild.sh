@@ -18,7 +18,7 @@ usage() {
 	  -l  Do not run rpmlint.
 	  -n  Disable build dependencies check, useful if they aren't installed via dnf.
 	  -s  Run rpmbuild unsandboxed.
-	  -i  Allow rpmbuild to access the network (ignore if used together with -a).
+	  -i  Allow rpmbuild to access the network (ignore if used together with -s).
 	EOM
 }
 
