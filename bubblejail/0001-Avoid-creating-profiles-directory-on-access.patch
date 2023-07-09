@@ -1,0 +1,138 @@
+From 7932c39a21397beb5d75bbe7b66b37771f67eb94 Mon Sep 17 00:00:00 2001
+From: igo95862 <igo95862@yandex.ru>
+Date: Sat, 8 Jul 2023 20:28:00 +0600
+Subject: [PATCH] Avoid creating profiles directory on access
+
+The issue is that if `/etc/bubblejail/profiles/` directory is
+missing bubblejail will try to create it but system directory
+would not be writeable by a regular user.
+
+Thank you @rusty-snake for finding this issue.
+---
+ src/bubblejail/bubblejail_cli.py              | 10 +---------
+ src/bubblejail/bubblejail_cli_autocomplete.py |  6 ++++--
+ src/bubblejail/bubblejail_directories.py      | 19 +++++++++++++++----
+ src/bubblejail/bubblejail_gui_qt.py           |  6 +-----
+ 4 files changed, 21 insertions(+), 20 deletions(-)
+
+diff --git a/src/bubblejail/bubblejail_cli.py b/src/bubblejail/bubblejail_cli.py
+index 21d84ef..7d7439f 100644
+--- a/src/bubblejail/bubblejail_cli.py
++++ b/src/bubblejail/bubblejail_cli.py
+@@ -31,14 +31,6 @@ if TYPE_CHECKING:
+     from typing import Optional
+ 
+ 
+-def iter_profile_names() -> Generator[str, None, None]:
+-    for profiles_directory in BubblejailDirectories.\
+-            iter_profile_directories():
+-
+-        for profile_file in profiles_directory.iterdir():
+-            yield profile_file.stem
+-
+-
+ def iter_instance_names() -> Generator[str, None, None]:
+     for instance_directory in BubblejailDirectories.iter_instances_path():
+         yield instance_directory.name
+@@ -150,7 +142,7 @@ def bjail_list(list_what: str) -> None:
+     if list_what == 'instances':
+         str_iterator = iter_instance_names()
+     elif list_what == 'profiles':
+-        str_iterator = iter_profile_names()
++        str_iterator = BubblejailDirectories.iter_profile_names()
+     elif list_what == 'services':
+         str_iterator = (x.name for x in SERVICES_CLASSES)
+     elif list_what == 'subcommands':
+diff --git a/src/bubblejail/bubblejail_cli_autocomplete.py b/src/bubblejail/bubblejail_cli_autocomplete.py
+index d98959e..3c63fe2 100644
+--- a/src/bubblejail/bubblejail_cli_autocomplete.py
++++ b/src/bubblejail/bubblejail_cli_autocomplete.py
+@@ -22,10 +22,10 @@ from typing import TYPE_CHECKING
+ from .bubblejail_cli import (
+     iter_instance_names,
+     iter_list_choices,
+-    iter_profile_names,
+     iter_subcommand_options,
+     iter_subcommands,
+ )
++from .bubblejail_directories import BubblejailDirectories
+ 
+ if TYPE_CHECKING:
+     from collections.abc import Iterable
+@@ -99,7 +99,9 @@ class AutoCompleteParser:
+ 
+             if words[index - 1] == '--profile':
+                 # Wants profile
+-                self.last_auto_complete = iter_profile_names()
++                self.last_auto_complete = (
++                    BubblejailDirectories.iter_profile_names()
++                )
+                 continue
+ 
+             if subcommand in want_instance_set:
+diff --git a/src/bubblejail/bubblejail_directories.py b/src/bubblejail/bubblejail_directories.py
+index c2b7305..63402bb 100644
+--- a/src/bubblejail/bubblejail_directories.py
++++ b/src/bubblejail/bubblejail_directories.py
+@@ -42,8 +42,7 @@ UserConfigDir = Path(xdg_config_home) / 'bubblejail'
+ 
+ 
+ def convert_old_conf_to_new() -> None:
+-    for instance_directory in BubblejailDirectories.\
+-            iter_instances_path():
++    for instance_directory in BubblejailDirectories.iter_instances_path():
+         if (instance_directory / FILE_NAME_SERVICES).is_file():
+             continue
+ 
+@@ -96,17 +95,29 @@ class BubblejailDirectories:
+         for profiles_directory in cls.iter_profile_directories():
+             possible_profile_path = profiles_directory / profile_file_name
+ 
+-            if possible_profile_path.is_file():
++            try:
+                 with open(possible_profile_path, mode='rb') as profile_file:
+                     return BubblejailProfile(**toml_load(profile_file))
++            except FileNotFoundError:
++                continue
+ 
+         raise BubblejailException(f"Profile {profile_name} not found")
+ 
++    @classmethod
++    def iter_profile_names(cls) -> Generator[str, None, None]:
++        for profiles_directory in (
++                BubblejailDirectories.iter_profile_directories()
++        ):
++            try:
++                for profile_file in profiles_directory.iterdir():
++                    yield profile_file.stem
++            except FileNotFoundError:
++                continue
++
+     @classmethod
+     def iter_profile_directories(cls) -> PathGeneratorType:
+         for conf_dir in cls.iterm_config_dirs():
+             profiles_dir = conf_dir / 'profiles'
+-            profiles_dir.mkdir(exist_ok=True)
+             yield profiles_dir
+ 
+     @classmethod
+diff --git a/src/bubblejail/bubblejail_gui_qt.py b/src/bubblejail/bubblejail_gui_qt.py
+index 1e94931..625200d 100644
+--- a/src/bubblejail/bubblejail_gui_qt.py
++++ b/src/bubblejail/bubblejail_gui_qt.py
+@@ -570,11 +570,7 @@ class CreateInstanceWidget(CentralWidgets):
+ 
+         self.current_profile: Optional[BubblejailProfile] = None
+ 
+-        profiles_names = set()
+-        for profiles_directory in \
+-                BubblejailDirectories.iter_profile_directories():
+-            for profile_file in profiles_directory.iterdir():
+-                profiles_names.add(profile_file.stem)
++        profiles_names = set(BubblejailDirectories.iter_profile_names())
+ 
+         for profile_name in profiles_names:
+             self.profile_select_widget.add_item(profile_name)
+-- 
+2.41.0
+
