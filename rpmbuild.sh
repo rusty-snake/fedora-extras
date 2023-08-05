@@ -115,7 +115,7 @@ if [[ -n "$RBS_NODEPS" ]]; then
 	RPMBUILD_ARGS+=(--nodeps)
 fi
 
-echo ${RPMBUILD_ARGS[@]}
+echo "${RPMBUILD_ARGS[@]}"
 
 if [[ -n "$RBS_NOSANDBOX" ]]; then
 	rpmbuild "${RPMBUILD_ARGS[@]}" -bb "$SPECDIR/$PACKAGE.spec"
