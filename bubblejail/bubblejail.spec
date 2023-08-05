@@ -1,12 +1,13 @@
 Name:           bubblejail
 Version:        0.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Bubblewrap based sandboxing for desktop applications
 
 License:        GPLv3+
 URL:            https://github.com/igo95862/bubblejail
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 Patch0:         ./0001-Avoid-creating-profiles-directory-on-access.patch
+Patch1:         ./0002-Fix-exception-when-calling-bubblejail-without-argume.patch
 
 BuildRequires:  meson
 BuildRequires:  python3-jinja2
@@ -60,6 +61,9 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 
 
 %changelog
+* Sat Aug 05 2023 rusty-snake - 0.8.0-3
+- Fix from igo95862/bubblejail#68
+
 * Sun Jul 09 2023 rusty-snake - 0.8.0-2
 - Fix igo95862/bubblejail#63
 
