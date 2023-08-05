@@ -6,9 +6,9 @@ Additional package for Fedora, missing in the offical repositories and RPMFusion
 Currently this are:
 - brave-browser-bin [abandoned; should still work]
 - bubblejail
-- gVisor-bin
+- gVisor-bin [abandoned]
 - hardened_malloc
-- libaslrmalloc
+- libaslrmalloc [abandoned]
 - scala3-bin [abandoned]
 - scurl
 
