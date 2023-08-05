@@ -90,10 +90,10 @@ BWRAP_ARGS=(
 	--proc /proc
 	--dev /dev
 	--ro-bind /usr /usr
-	--symlink /usr/bin /bin
-	--symlink /usr/lib /lib
-	--symlink /usr/lib64 /lib64
-	--symlink /usr/sbin /sbin
+	--symlink usr/bin /bin
+	--symlink usr/lib /lib
+	--symlink usr/lib64 /lib64
+	--symlink usr/sbin /sbin
 	--dir /tmp
 	--ro-bind-try /etc/alternatives /etc/alternatives
 	--ro-bind-try /etc/dnf /etc/dnf
@@ -106,23 +106,24 @@ BWRAP_ARGS=(
 	--dir /var/tmp
 	--bind "$TOPDIR" "$TOPDIR"
 )
+if [[ -n "$RBS_SANDBOX_INET" ]]; then
+	BWRAP_ARGS+=(--share-net)
+fi
+
 RPMBUILD_ARGS=(
 	--nodebuginfo
 	--define "_topdir $TOPDIR"
 )
-
 if [[ -n "$RBS_NODEPS" ]]; then
 	RPMBUILD_ARGS+=(--nodeps)
 fi
 
-echo "${RPMBUILD_ARGS[@]}"
+RPMBUILD_CMD=(rpmbuild "${RPMBUILD_ARGS[@]}" -bb "$SPECDIR/$PACKAGE.spec")
 
 if [[ -n "$RBS_NOSANDBOX" ]]; then
-	rpmbuild "${RPMBUILD_ARGS[@]}" -bb "$SPECDIR/$PACKAGE.spec"
-elif [[ -n "$RBS_SANDBOX_INET" ]]; then
-	bwrap "${BWRAP_ARGS[@]}" --share-net -- rpmbuild "${RPMBUILD_ARGS[@]}" -bb "$SPECDIR/$PACKAGE.spec"
+	"${RPMBUILD_CMD[@]}"
 else
-	bwrap "${BWRAP_ARGS[@]}" -- rpmbuild "${RPMBUILD_ARGS[@]}" -bb "$SPECDIR/$PACKAGE.spec"
+	bwrap "${BWRAP_ARGS[@]}" -- "${RPMBUILD_CMD[@]}"
 fi
 
 if [[ -z "$RBS_NOLINT" ]]; then
