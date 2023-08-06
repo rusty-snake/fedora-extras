@@ -1,7 +1,7 @@
 From 6ea0efcced33afdf306a03d1b556650a205e8e14 Mon Sep 17 00:00:00 2001
 From: rusty-snake <41237666+rusty-snake@users.noreply.github.com>
 Date: Wed, 2 Aug 2023 18:55:11 +0200
-Subject: [PATCH 2/2] Fix exception when calling bubblejail without arguments
+Subject: [PATCH 2/5] Fix exception when calling bubblejail without arguments
 
 ---
  src/bubblejail/bubblejail_cli.py | 2 +-

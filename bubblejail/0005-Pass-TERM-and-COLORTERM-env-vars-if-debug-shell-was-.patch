@@ -1,0 +1,38 @@
+From 3f83bcccaa558df435148df9e136e24ebacca97e Mon Sep 17 00:00:00 2001
+From: igo95862 <igo95862@yandex.ru>
+Date: Sun, 6 Aug 2023 17:38:59 +0600
+Subject: [PATCH 5/5] Pass `TERM` and `COLORTERM` env vars if debug shell was
+ used
+
+This makes sure that any program launched inside debug shell
+will properly use the terminal features.
+---
+ src/bubblejail/bubblejail_runner.py | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/src/bubblejail/bubblejail_runner.py b/src/bubblejail/bubblejail_runner.py
+index 2dd7343..3839bef 100644
+--- a/src/bubblejail/bubblejail_runner.py
++++ b/src/bubblejail/bubblejail_runner.py
+@@ -152,6 +152,18 @@ class BubblejailRunner:
+         # Unset all variables
+         self.bwrap_options_args.append('--clearenv')
+ 
++        # Pass terminal variables if debug shell activated
++        if self.is_shell_debug:
++            if term_env := environ.get("TERM"):
++                self.bwrap_options_args.extend(
++                    ("--setenv", "TERM", term_env)
++                )
++
++            if colorterm_env := environ.get("COLORTERM"):
++                self.bwrap_options_args.extend(
++                    ("--setenv", "COLORTERM", colorterm_env)
++                )
++
+         for service in self.instance_config.iter_services():
+             config_iterator = service.iter_bwrap_options()
+ 
+-- 
+2.41.0
+

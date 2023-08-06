@@ -1,0 +1,54 @@
+From f6d523325e8af7ce1c139a1022caf6d68ac08778 Mon Sep 17 00:00:00 2001
+From: igo95862 <igo95862@yandex.ru>
+Date: Sat, 5 Aug 2023 22:39:22 +0600
+Subject: [PATCH 4/5] Print message to the stderr when sending command to a
+ running instance
+
+This makes `run` command not completely silent when there is already
+running instance.
+---
+ src/bubblejail/bubblejail_cli.py | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/src/bubblejail/bubblejail_cli.py b/src/bubblejail/bubblejail_cli.py
+index 8d3db86..8f5c12c 100644
+--- a/src/bubblejail/bubblejail_cli.py
++++ b/src/bubblejail/bubblejail_cli.py
+@@ -18,7 +18,7 @@ from __future__ import annotations
+ from argparse import ArgumentParser
+ from asyncio import run as async_run
+ from pathlib import Path
+-from sys import argv
++from sys import argv, stderr
+ from typing import TYPE_CHECKING
+ 
+ from .bubblejail_cli_metadata import BUBBLEJAIL_CMD
+@@ -81,9 +81,15 @@ def run_bjail(instance_name: str,
+ 
+         if instance.is_running():
+             if dry_run:
+-                print('Found helper socket.')
+-                print('Args to be sent: ', args_to_instance)
++                print("Found helper socket.", file=stderr)
++                print("Args would be be sent: ", args_to_instance, file=stderr)
+                 return
++            else:
++                print("Instance already running.", file=stderr)
++                print(
++                    "Sending command to the instance: ", args_to_instance,
++                    file=stderr,
++                )
+ 
+             command_return_text = async_run(
+                 instance.send_run_rpc(
+@@ -114,7 +120,6 @@ def run_bjail(instance_name: str,
+             )
+     except Exception:
+         from os import isatty
+-        from sys import stderr
+ 
+         if not isatty(stderr.fileno()):
+             from subprocess import run as subprocess_run
+-- 
+2.41.0
+
