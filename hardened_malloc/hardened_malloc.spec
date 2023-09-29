@@ -1,5 +1,5 @@
 Name:           hardened_malloc
-Version:        11
+Version:        12
 Release:        1%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Fri Sep 29 2023 rusty-snake - 12-1
+- Update to version 12
+
 * Sat Jan 22 2022 rusty-snake - 11-1
 - Update to version 11
 
