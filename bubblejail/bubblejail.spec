@@ -1,5 +1,5 @@
 Name:           bubblejail
-Version:        0.8.1
+Version:        0.8.2
 Release:        1%{?dist}
 Summary:        Bubblewrap based sandboxing for desktop applications
 
@@ -59,6 +59,9 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 
 
 %changelog
+* Wed Oct 25 2023 rusty-snake - 0.8.2-1
+- Update to 0.8.2
+
 * Sun Aug 06 2023 rusty-snake - 0.8.1-1
 - Update to 0.8.1
 
