@@ -1,6 +1,6 @@
 Name:           hardened_malloc
 Version:        12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
@@ -24,17 +24,21 @@ will gain more portability / integration over time.
 
 %prep
 %autosetup
+cp config/default.mk config/pkey.mk
+sed -i 's/CONFIG_SEAL_METADATA := false/CONFIG_SEAL_METADATA := true/' config/pkey.mk
 
 
 %build
 make
 make VARIANT=light
+make VARIANT=pkey
 
 
 %install
 install -Dm0644 %{SOURCE1} %{buildroot}%{_sysctldir}/30-hardened_malloc.conf
 install -Dm0755 -s out/libhardened_malloc.so %{buildroot}%{_libdir}/libhardened_malloc.so
 install -Dm0755 -s out-light/libhardened_malloc-light.so %{buildroot}%{_libdir}/libhardened_malloc-light.so
+install -Dm0755 -s out-pkey/libhardened_malloc-pkey.so %{buildroot}%{_libdir}/libhardened_malloc-pkey.so
 
 
 %check
@@ -59,9 +63,13 @@ make test
 %{_sysctldir}/30-hardened_malloc.conf
 %{_libdir}/libhardened_malloc.so
 %{_libdir}/libhardened_malloc-light.so
+%{_libdir}/libhardened_malloc-pkey.so
 
 
 %changelog
+* Sat Dec 09 2023 rusty-snake - 12-2
+- Add pkey variant
+
 * Fri Sep 29 2023 rusty-snake - 12-1
 - Update to version 12
 
