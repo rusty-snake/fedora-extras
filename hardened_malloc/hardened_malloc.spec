@@ -1,6 +1,6 @@
 Name:           hardened_malloc
 Version:        12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
@@ -34,9 +34,9 @@ make VARIANT=pkey
 
 
 %install
-install -Dm0755 -s out/libhardened_malloc.so %{buildroot}%{_libdir}/libhardened_malloc.so
-install -Dm0755 -s out-light/libhardened_malloc-light.so %{buildroot}%{_libdir}/libhardened_malloc-light.so
-install -Dm0755 -s out-pkey/libhardened_malloc-pkey.so %{buildroot}%{_libdir}/libhardened_malloc-pkey.so
+install -Dm4755 -s out/libhardened_malloc.so %{buildroot}%{_libdir}/libhardened_malloc.so
+install -Dm4755 -s out-light/libhardened_malloc-light.so %{buildroot}%{_libdir}/libhardened_malloc-light.so
+install -Dm4755 -s out-pkey/libhardened_malloc-pkey.so %{buildroot}%{_libdir}/libhardened_malloc-pkey.so
 
 
 %check
@@ -64,6 +64,11 @@ make test
 
 
 %changelog
+* Sun Dec 10 2023 rusty-snake - 12-4
+- Set set-user-id bit on libhardened_malloc.so.
+  Thanks to Tad for the finding and reporting.
+  Fixes #2
+
 * Sat Dec 09 2023 rusty-snake - 12-3
 - Remove 30-hardened_malloc.conf, Fedora 39 does this by default
 
