@@ -1,6 +1,6 @@
 Name:           hardened_malloc
 Version:        12
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
@@ -34,9 +34,9 @@ make VARIANT=pkey
 
 
 %install
-install -Dm4755 -s out/libhardened_malloc.so %{buildroot}%{_libdir}/libhardened_malloc.so
-install -Dm4755 -s out-light/libhardened_malloc-light.so %{buildroot}%{_libdir}/libhardened_malloc-light.so
-install -Dm4755 -s out-pkey/libhardened_malloc-pkey.so %{buildroot}%{_libdir}/libhardened_malloc-pkey.so
+install -Dm4644 -s out/libhardened_malloc.so %{buildroot}%{_libdir}/libhardened_malloc.so
+install -Dm4644 -s out-light/libhardened_malloc-light.so %{buildroot}%{_libdir}/libhardened_malloc-light.so
+install -Dm4644 -s out-pkey/libhardened_malloc-pkey.so %{buildroot}%{_libdir}/libhardened_malloc-pkey.so
 
 
 %check
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Tue Dec 12 2023 rusty-snake - 12-5
+- hardened_malloc.so: 4755 -> 4644
+
 * Sun Dec 10 2023 rusty-snake - 12-4
 - Set set-user-id bit on libhardened_malloc.so.
   Thanks to Tad for the finding and reporting.
