@@ -107,7 +107,12 @@ BWRAP_ARGS=(
 	--bind "$TOPDIR" "$TOPDIR"
 )
 if [[ -n "$RBS_SANDBOX_INET" ]]; then
-	BWRAP_ARGS+=(--share-net)
+	BWRAP_ARGS+=(
+		--share-net
+		--ro-bind-try /etc/resolv.conf /etc/resolv.conf
+		--ro-bind-try /etc/pki /etc/pki
+		--ro-bind-try /etc/ssl /etc/ssl
+	)
 fi
 
 RPMBUILD_ARGS=(
