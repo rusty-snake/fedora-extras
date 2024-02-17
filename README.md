@@ -11,6 +11,7 @@ Currently this are:
 - libaslrmalloc [abandoned]
 - scurl
 - typst
+- typst-lsp
 
 Getting started
 ---------------
