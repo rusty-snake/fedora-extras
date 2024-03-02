@@ -60,7 +60,7 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 
 %changelog
 * Sat Mar 02 2024 rusty-snake - 0.8.3-1
--Update to 0.8.3
+- Update to 0.8.3
 
 * Wed Oct 25 2023 rusty-snake - 0.8.2-1
 - Update to 0.8.2
