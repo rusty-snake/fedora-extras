@@ -10,6 +10,7 @@ Currently this are:
 - hardened_malloc
 - libaslrmalloc [abandoned]
 - scurl
+- typos-lsp
 - typst
 - typst-lsp
 
