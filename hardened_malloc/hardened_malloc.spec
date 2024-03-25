@@ -1,6 +1,6 @@
 Name:           hardened_malloc
 Version:        12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
@@ -12,6 +12,10 @@ BuildRequires:  systemd-rpm-macros
 
 # https://github.com/GrapheneOS/hardened_malloc/issues/200
 %global optflags %{optflags} -fno-fat-lto-objects
+
+%if 0%{?fedora} == 40
+%undefine _ld_pack_relocs
+%endif
 
 %description
 Hardened allocator designed for modern systems.
