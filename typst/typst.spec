@@ -26,7 +26,6 @@ tag = "v0.11.0"
 replace-with = "vendored-sources"
 
 EOF
-cat .cargo/config
 
 
 %build
