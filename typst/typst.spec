@@ -1,5 +1,5 @@
 Name:           typst
-Version:        0.11.0
+Version:        0.11.1
 Release:        1%{?dist}
 Summary:        A new markup-based typesetting system that is powerful and easy to learn
 
@@ -20,9 +20,9 @@ powerful as LaTeX while being much easier to learn and use.
 %{__cargo} vendor --versioned-dirs vendor/
 %cargo_prep -v vendor/
 cat >> .cargo/config << EOF
-[source."git+https://github.com/typst/typst-dev-assets?tag=v0.11.0"]
+[source."git+https://github.com/typst/typst-dev-assets?tag=v0.11.1"]
 git = "https://github.com/typst/typst-dev-assets"
-tag = "v0.11.0"
+tag = "v0.11.1"
 replace-with = "vendored-sources"
 
 EOF
@@ -51,6 +51,9 @@ cd crates/typst-cli
 
 
 %changelog
+* Sat May 18 2024 rusty-snake - 0.11.1-1
+- typst 0.11.1
+
 * Thu Mar 21 2024 rusty-snake - 0.11.0-1
 - typst 0.11.0
 - fix some rpmlint reports
