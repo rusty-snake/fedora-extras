@@ -1,0 +1,26 @@
+From 4b44463c1b379ae33fd84bb7da0eded20285f286 Mon Sep 17 00:00:00 2001
+From: igo95862 <igo95862@yandex.ru>
+Date: Thu, 30 May 2024 22:10:42 +0500
+Subject: [PATCH] Set desktop entry name for the Qt GUI
+
+This will make the GUI program show the correct icon in the desktop
+environment.
+---
+ src/bubblejail/bubblejail_gui_qt.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/bubblejail/bubblejail_gui_qt.py b/src/bubblejail/bubblejail_gui_qt.py
+index 2023456..e1cd8e8 100644
+--- a/src/bubblejail/bubblejail_gui_qt.py
++++ b/src/bubblejail/bubblejail_gui_qt.py
+@@ -669,6 +669,7 @@ class SelectInstanceWidget:
+ class BubblejailConfigApp:
+     def __init__(self) -> None:
+         self.q_app = QApplication(argv)
++        self.q_app.setDesktopFileName("bubblejail-config")
+         self.window = QMainWindow()
+         self.window.resize(600, 400)
+         self.switch_to_selector()
+-- 
+2.45.1
+
