@@ -1,19 +1,17 @@
 Name:           bubblejail
-Version:        0.8.3
-Release:        2%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        Bubblewrap based sandboxing for desktop applications
 
 License:        GPLv3+
 URL:            https://github.com/igo95862/bubblejail
-Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
-Patch0:         ./0001-Set-desktop-entry-name-for-the-Qt-GUI.patch
+Source0:        %{url}/releases/download/%{version}/bubblejail-%{version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  python3-jinja2
 BuildRequires:  scdoc
 Requires:       python3 >= 3.10
 Requires:       python3-pyxdg
-Requires:       python3-tomli
 Requires:       python3-tomli-w
 Requires:       bubblewrap >= 0.5.0
 Requires:       xdg-dbus-proxy
@@ -35,7 +33,10 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 
 
 %build
-%meson
+%meson \
+	-Duse-vendored-python-lxns=enabled \
+	-Dpython.purelibdir=%_libdir/bubblejail/python-packages \
+	-Dpython.platlibdir=%_libdir/bubblejail/python-packages
 %meson_build
 
 
@@ -44,7 +45,7 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 
 
 %files
-%license COPYING
+%license LICENSES/GPL-3.0-or-later.txt
 %doc README.md docs/breaking_changes.md
 %_bindir/bubblejail
 %_bindir/bubblejail-config
@@ -60,6 +61,9 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 
 
 %changelog
+* Mon Jul 08 2024 rusty-snake - 0.9.0-1
+- Update to 0.9.0
+
 * Thu May 30 2024 rusty-snake - 0.8.3-2
 - Fix igo95862/bubblejail#103
 
