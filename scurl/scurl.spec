@@ -1,22 +1,16 @@
 Name:           scurl
-Version:        2.0.3
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        Secure curl
 
 License:        MIT
 URL:            https://github.com/rusty-snake/fedora-extras/tree/main/scurl
-Source0:        scurl
-Source1:        scurl-download
-Source2:        scurl.1.rst
-Source3:        scurl-download.1.rst
-Source4:        scurl-tor
-Source5:        scurl-tor.conf
-Source6:        scurl-tor.1.rst
-Source7:        scurl-download.conf
+Source0:        src
 
 BuildArch:      noarch
 BuildRequires:  python3-docutils
 Requires:       curl
+Requires:       wget2 wget2-wget
 
 
 %description
@@ -25,20 +19,21 @@ scurl-download is a wrapper around scurl optimized to download files.
 
 
 %prep
-cp %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} %{_builddir}
+cp %{SOURCE0}/* %{_builddir}
 
 
 %build
 rst2man scurl.1.rst scurl.1
 rst2man scurl-download.1.rst scurl-download.1
 rst2man scurl-tor.1.rst scurl-tor.1
+rst2man swget.1.rst swget.1
 
 
 %install
-install -Dm0644 %{SOURCE5} %{buildroot}/etc/sysconfig/scurl-tor
-install -Dm0644 %{SOURCE7} %{buildroot}/etc/sysconfig/scurl-download
-install -Dm0755 -t %{buildroot}%{_bindir} scurl scurl-download scurl-tor
-install -Dm0644 -t %{buildroot}%{_mandir}/man1 scurl.1 scurl-download.1 scurl-tor.1
+install -Dm0644 scurl-download.conf %{buildroot}%{_sysconfdir}/sysconfig/scurl-download
+install -Dm0644 scurl-tor.conf %{buildroot}%{_sysconfdir}/sysconfig/scurl-tor
+install -Dm0755 -t %{buildroot}%{_bindir} scurl scurl-download scurl-tor swget
+install -Dm0644 -t %{buildroot}%{_mandir}/man1 scurl.1 scurl-download.1 scurl-tor.1 swget.1
 
 
 %files
@@ -47,12 +42,17 @@ install -Dm0644 -t %{buildroot}%{_mandir}/man1 scurl.1 scurl-download.1 scurl-to
 %{_bindir}/scurl
 %{_bindir}/scurl-download
 %{_bindir}/scurl-tor
+%{_bindir}/swget
 %{_mandir}/man1/scurl.1.gz
 %{_mandir}/man1/scurl-download.1.gz
 %{_mandir}/man1/scurl-tor.1.gz
+%{_mandir}/man1/swget.1.gz
 
 
 %changelog
+* Fri Aug 16 2024 rusty-snake - 2.1.0-1
+- Add swget
+
 * Mon Oct 30 2023 rusty-snake - 2.0.3-1
 - Update USER_AGENT in scurl-tor.conf
 
