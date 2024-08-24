@@ -60,7 +60,7 @@ for program in "${REQUIRED_PROGRAMS[@]}"; do
 	fi
 done
 
-TOPDIR="$(mktemp -dt rpmbuild.sh-XXXXXX)"
+TOPDIR="$(mktemp -d /var/tmp/rpmbuild.sh-XXXXXX)"
 # shellcheck disable=SC2064
 trap "rm -rf '$TOPDIR'" EXIT
 
