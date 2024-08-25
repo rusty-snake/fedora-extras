@@ -1,5 +1,5 @@
 Name:           bubblejail
-Version:        0.9.0
+Version:        0.9.1
 Release:        1%{?dist}
 Summary:        Bubblewrap based sandboxing for desktop applications
 
@@ -34,9 +34,9 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 
 %build
 %meson \
-	-Duse-vendored-python-lxns=enabled \
-	-Dpython.purelibdir=%_libdir/bubblejail/python-packages \
-	-Dpython.platlibdir=%_libdir/bubblejail/python-packages
+    -Duse-vendored-python-lxns=enabled \
+    -Dpython.purelibdir=%_libdir/bubblejail/python-packages \
+    -Dpython.platlibdir=%_libdir/bubblejail/python-packages
 %meson_build
 
 
@@ -61,6 +61,9 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 
 
 %changelog
+* Sun Aug 25 2024 rusty-snake - 0.9.1-1
+- Update to 0.9.1
+
 * Mon Jul 08 2024 rusty-snake - 0.9.0-1
 - Update to 0.9.0
 
