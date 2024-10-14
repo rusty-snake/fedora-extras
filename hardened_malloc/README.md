@@ -17,3 +17,5 @@ Content
 -------
 
 - `libhardened_malloc.so`
+- `libhardened_malloc-light.so`
+- `libhardened_malloc-pkey.so`

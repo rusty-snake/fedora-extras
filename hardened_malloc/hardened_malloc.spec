@@ -1,6 +1,6 @@
 Name:           hardened_malloc
-Version:        12
-Release:        5%{?dist}
+Version:        13
+Release:        1%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Mon Oct 14 2024 rusty-snake - 13-1
+- hardened_malloc 13
+
 * Tue Dec 12 2023 rusty-snake - 12-5
 - hardened_malloc.so: 4755 -> 4644
 
