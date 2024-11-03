@@ -1,5 +1,5 @@
 Name:           scurl
-Version:        2.1.0
+Version:        2.1.1
 Release:        1%{?dist}
 Summary:        Secure curl
 
@@ -50,6 +50,9 @@ install -Dm0644 -t %{buildroot}%{_mandir}/man1 scurl.1 scurl-download.1 scurl-to
 
 
 %changelog
+* Sun Nov 03 2024 rusty-snake - 2.1.1-1
+- Update USER_AGENT
+
 * Fri Aug 16 2024 rusty-snake - 2.1.0-1
 - Add swget
 
