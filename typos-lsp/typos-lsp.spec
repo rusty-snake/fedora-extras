@@ -1,5 +1,5 @@
 Name:           typos-lsp
-Version:        0.1.27
+Version:        0.1.29
 Release:        1%{?dist}
 Summary:        Source code spell checker for Visual Studio Code and LSP clients
 
@@ -43,6 +43,9 @@ cd crates/typos-lsp
 
 
 %changelog
+* Tue Nov 05 2024 rusty-snake - 0.1.29-1
+- typos-lsp 0.1.29
+
 * Thu Oct 3 2024 rusty-snake - 0.1.27-1
 - typos-lsp 0.1.27
 
