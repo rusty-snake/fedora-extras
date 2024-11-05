@@ -12,8 +12,8 @@ Currently this are:
 - scurl
 - sydbox [experimental]
 - typos-lsp
-- typst
-- typst-lsp
+- typst [abandoned]
+- typst-lsp [abandoned]
 
 Getting started
 ---------------
