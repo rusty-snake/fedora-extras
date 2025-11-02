@@ -7,7 +7,6 @@ Currently this are:
 - bubblejail
 - hardened_malloc
 - scurl
-- sydbox [experimental]
 
 More can be found in the git history.
 
