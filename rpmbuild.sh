@@ -55,7 +55,7 @@ fi
 REQUIRED_PROGRAMS=(rpmbuild rpmlint spectool)
 for program in "${REQUIRED_PROGRAMS[@]}"; do
 	if ! command -v $program >&-; then
-		echo "rpmbuild.sh: Please install $program: sudo dnf install \"\$(dnf repoquery --whatprovides \"/usr/bin/$program\" 2>/dev/null)\""
+		echo "rpmbuild.sh: Please install $program: run0 sh -c \"dnf install '\$(dnf repoquery --whatprovides \"/usr/bin/$program\" 2>/dev/null | tail -n1)'\""
 		exit 5
 	fi
 done
