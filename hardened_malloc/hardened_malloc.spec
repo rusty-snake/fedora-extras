@@ -1,11 +1,12 @@
 Name:           hardened_malloc
 Version:        13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
 URL:            https://github.com/GrapheneOS/hardened_malloc
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
+Patch0:         %{url}/commit/1d7fc7ffe0f8068a32ab2ba33df7515e7bad3f5f.patch
 
 BuildRequires:  systemd-rpm-macros
 
@@ -34,9 +35,9 @@ make VARIANT=pkey
 
 
 %install
-install -Dm4644 -s out/libhardened_malloc.so %{buildroot}%{_libdir}/libhardened_malloc.so
-install -Dm4644 -s out-light/libhardened_malloc-light.so %{buildroot}%{_libdir}/libhardened_malloc-light.so
-install -Dm4644 -s out-pkey/libhardened_malloc-pkey.so %{buildroot}%{_libdir}/libhardened_malloc-pkey.so
+install -Dm4755 -s out/libhardened_malloc.so %{buildroot}%{_libdir}/libhardened_malloc.so
+install -Dm4755 -s out-light/libhardened_malloc-light.so %{buildroot}%{_libdir}/libhardened_malloc-light.so
+install -Dm4755 -s out-pkey/libhardened_malloc-pkey.so %{buildroot}%{_libdir}/libhardened_malloc-pkey.so
 
 
 %check
@@ -64,6 +65,10 @@ make test
 
 
 %changelog
+* Sun Nov 09 2025 rusty-snake - 13-2
+- Go back to 4755 for .so
+- Add patch for GCC15
+
 * Mon Oct 14 2024 rusty-snake - 13-1
 - hardened_malloc 13
 
