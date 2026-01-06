@@ -1,9 +1,9 @@
 Name:           bubblejail
 Version:        0.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bubblewrap based sandboxing for desktop applications
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/igo95862/bubblejail
 Source0:        %{url}/releases/download/%{version}/bubblejail-%{version}.tar.xz
 
@@ -56,13 +56,17 @@ Bubblejail is a bubblewrap-based alternative to Firejail.
 %_datadir/bash-completion/completions/bubblejail
 %_datadir/bubblejail
 %_datadir/fish/vendor_completions.d/bubblejail.fish
-%_datadir/icons/hicolor/48x48/apps/bubblejail-config.png
+%_datadir/icons/hicolor/128x128/apps/bubblejail-config.png
 %_datadir/icons/hicolor/scalable/apps/bubblejail-config.svg
 %_mandir/man1/bubblejail.1.gz
 %_mandir/man5/bubblejail.services.5.gz
 
 
 %changelog
+* Tue Jan 06 2026 wisp3rwind - 0.10.1-2
+- Fix install after igo95862/bubblejail#156
+- migrated to SPDX license
+
 * Sun Nov 02 2025 rusty-snake - 0.10.1-1
 - Update to 0.10.1
 
