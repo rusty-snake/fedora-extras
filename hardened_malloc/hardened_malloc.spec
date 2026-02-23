@@ -1,12 +1,11 @@
 Name:           hardened_malloc
-Version:        13
-Release:        2%{?dist}
+Version:        14
+Release:        1%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
 URL:            https://github.com/GrapheneOS/hardened_malloc
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
-Patch0:         %{url}/commit/1d7fc7ffe0f8068a32ab2ba33df7515e7bad3f5f.patch
 
 BuildRequires:  systemd-rpm-macros
 
@@ -65,6 +64,9 @@ make test
 
 
 %changelog
+* Mon Feb 23 2026 rusty-snake - 14-1
+- hardened_malloc 14
+
 * Sun Nov 09 2025 rusty-snake - 13-2
 - Go back to 4755 for .so
 - Add patch for GCC15
