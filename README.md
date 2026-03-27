@@ -16,10 +16,10 @@ Getting started
 1. Install the necessary programs to build rpms on your system.
 
 ```bash
-sudo dnf install rpm-build rpmdevtools rpmlint
+dnf install rpm-build rpmdevtools rpmlint
 ```
 
-2. Build the package you.
+2. Build the package you want.
 
 ```bash
 ./rpmbuild.sh [OPTIONS] <PACKAGE>
@@ -32,7 +32,7 @@ Where `<PACKAGE>` is the name of a directory containing a specfile named `$PACKA
 3. Install the package
 
 ```bash
-sudo dnf install ./<PACKAGE>.rpm
+dnf install ./<PACKAGE>.rpm
 ```
 
 Documentation

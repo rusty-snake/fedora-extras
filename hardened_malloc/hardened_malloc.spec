@@ -7,8 +7,6 @@ License:        MIT
 URL:            https://github.com/GrapheneOS/hardened_malloc
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 
-BuildRequires:  systemd-rpm-macros
-
 
 # https://github.com/GrapheneOS/hardened_malloc/issues/200
 %global optflags %{optflags} -fno-fat-lto-objects
