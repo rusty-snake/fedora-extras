@@ -99,6 +99,7 @@ BWRAP_ARGS=(
 	--ro-bind-try /etc/dnf /etc/dnf
 	--ro-bind-try /etc/rpm /etc/rpm
 	--ro-bind-try /etc/rpmrc /etc/rpmrc
+	--ro-bind-try /etc/selinux /etc/selinux
 	--ro-bind-try /etc/yum.repos.d /etc/yum.repos.d
 	--ro-bind-try /var/cache/dnf /var/cache/dnf
 	--ro-bind-try /var/lib/dnf /var/lib/dnf
