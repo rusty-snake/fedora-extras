@@ -1,11 +1,12 @@
 Name:           hardened_malloc
 Version:        14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hardened allocator designed for modern systems
 
 License:        MIT
 URL:            https://github.com/GrapheneOS/hardened_malloc
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
+Patch0:         %{url}/commit/04a25bd141efcd2c0d29ef7d868b205a844b3ad2.patch
 
 
 # https://github.com/GrapheneOS/hardened_malloc/issues/200
@@ -62,6 +63,9 @@ make test
 
 
 %changelog
+* Sun May 10 2026 rusty-snake - 14-2
+- Add patch for GCC16
+
 * Mon Feb 23 2026 rusty-snake - 14-1
 - hardened_malloc 14
 
