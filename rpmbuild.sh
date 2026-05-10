@@ -7,7 +7,7 @@ shopt -s nullglob
 cd -P -- "$(readlink -e "$(dirname "$0")")"
 
 USER="${USER:-$(id -un)}"
-HOME="${HOME:-$(getent passwd $USER | cut -d: -f7)}"
+HOME="${HOME:-$(getent passwd "$USER" | cut -d: -f7)}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 
 usage() {
@@ -54,7 +54,7 @@ fi
 
 REQUIRED_PROGRAMS=(rpmbuild rpmlint spectool)
 for program in "${REQUIRED_PROGRAMS[@]}"; do
-	if ! command -v $program >&-; then
+	if ! command -v "$program" >&-; then
 		echo "rpmbuild.sh: Please install $program: run0 sh -c \"dnf install '\$(dnf repoquery --whatprovides \"/usr/bin/$program\" 2>/dev/null | tail -n1)'\""
 		exit 5
 	fi
